@@ -1,89 +1,76 @@
-let categories = [
-  {
-    title: "Личное",
-    img: "woman.png",
-  },
-  {
-    title: "Работа",
-    img: "briefcase.png",
-  },
-  {
-    title: "Покупки",
-    img: "shopping.png",
-  },
-  {
-    title: "Программирование",
-    img: "web-design.png",
-  },
-  {
-    title: "Здоровье",
-    img: "healthcare.png",
-  },
-  {
-    title: "Тренировки",
-    img: "dumbbell.png",
-  },
-  {
-    title: "Образование",
-    img: "education.png",
-  },
-  {
-    title: "Финансы",
-    img: "saving.png",
-  },
-];
+let tasks = []
 
-// Define functions
+let categories = [
+	{
+		title: 'Срочное',
+	},
+	{
+		title: 'Работа',
+	},
+	{
+		title: 'Образование',
+	},
+	{
+		title: 'Личное',
+	},
+	{
+		title: 'Домашние дела',
+	},
+	{
+		title: 'Хобби и отдых',
+	},
+	{
+		title: 'Локации и путешествия',
+	},
+	{
+		title: 'Спорт',
+	},
+]
+
+// Определение функций
 const saveLocal = () => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
+	localStorage.setItem('tasks', JSON.stringify(tasks))
+}
 
 const getLocal = () => {
-  const tasksLocal = JSON.parse(localStorage.getItem("tasks"));
-  if (tasksLocal) {
-    tasks = tasksLocal;
-  }
-};
+	const tasksLocal = JSON.parse(localStorage.getItem('tasks'))
+	if (tasksLocal) {
+		tasks = tasksLocal
+	}
+}
 
 const toggleScreen = () => {
-  screenWrapper.classList.toggle("show-category");
-};
+	screenWrapper.classList.toggle('show-category')
+}
 
 const updateTotals = () => {
-  const categoryTasks = tasks.filter(
-      (task) =>
-          task.category.toLowerCase() === selectedCategory.title.toLowerCase() &&
-          !task.completed
-  );
-  numTasks.innerHTML = `Осталось выполнить: ${categoryTasks.length}`;
-  totalTasks.innerHTML = tasks.length;
-};
+	const categoryTasks = tasks.filter(
+		task => task.category.toLowerCase() === selectedCategory.title.toLowerCase()
+	)
+	numTasks.innerHTML = `Кол-во задач: ${categoryTasks.length}`
+	totalTasks.innerHTML = tasks.length
+}
 
 const renderCategories = () => {
-  categoriesContainer.innerHTML = "";
-  categories.forEach((category) => {
-    const categoryTasks = tasks.filter(
-        (task) => task.category.toLowerCase() === category.title.toLowerCase()
-    );
-    const div = document.createElement("div");
-    div.classList.add("category");
-    div.addEventListener("click", () => {
-      screenWrapper.classList.toggle("show-category");
-      selectedCategory = category;
-      updateTotals();
-      categoryTitle.innerHTML = category.title;
-      categoryImg.src = `images/${category.img}`;
-      renderTasks();
-    });
+	categoriesContainer.innerHTML = ''
+	categories.forEach(category => {
+		const categoryTasks = tasks.filter(
+			task => task.category.toLowerCase() === category.title.toLowerCase()
+		)
+		const div = document.createElement('div')
+		div.classList.add('category')
+		div.addEventListener('click', () => {
+			screenWrapper.classList.toggle('show-category')
+			selectedCategory = category
+			updateTotals()
+			categoryTitle.innerHTML = category.title
+			renderTasks()
+		})
 
-    div.innerHTML = `
-                  <div class="left">
-                <img src="images/${category.img}"
-                 alt="${category.title}"
-                  />
+		div.innerHTML = `
                 <div class="content">
                   <h1>${category.title}</h1>
-                  <p>Кол-во задач: ${categoryTasks.length} </p>
+                  <p>Задач: ${categoryTasks.length}</p>
                 </div>
               </div>
               <div class="options">
@@ -104,37 +91,36 @@ const renderCategories = () => {
                   </svg>
                 </div>
               </div>
-    `;
+    `
 
-    categoriesContainer.appendChild(div);
-  });
-};
+		categoriesContainer.appendChild(div)
+	})
+}
 
 const renderTasks = () => {
-  tasksContainer.innerHTML = "";
-  const categoryTasks = tasks.filter(
-      (task) =>
-          task.category.toLowerCase() === selectedCategory.title.toLowerCase()
-  );
-  if (categoryTasks.length === 0) {
-    tasksContainer.innerHTML = `<p class="no-tasks">No tasks added for this category</p>`;
-  } else {
-    categoryTasks.forEach((task) => {
-      const div = document.createElement("div");
-      div.classList.add("task-wrapper");
-      const label = document.createElement("label");
-      label.classList.add("task");
-      label.setAttribute("for", task.id);
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.id = task.id;
-      checkbox.checked = task.completed;
-      checkbox.addEventListener("change", () => {
-        const index = tasks.findIndex((t) => t.id === task.id);
-        tasks[index].completed = !tasks[index].completed;
-        saveLocal();
-      });
-      div.innerHTML = `
+	tasksContainer.innerHTML = ''
+	const categoryTasks = tasks.filter(
+		task => task.category.toLowerCase() === selectedCategory.title.toLowerCase()
+	)
+	if (categoryTasks.length === 0) {
+		tasksContainer.innerHTML = `<p class="no-tasks">Задачи отсутствуют</p>`
+	} else {
+		categoryTasks.forEach(task => {
+			const div = document.createElement('div')
+			div.classList.add('task-wrapper')
+			const label = document.createElement('label')
+			label.classList.add('task')
+			label.setAttribute('for', task.id)
+			const checkbox = document.createElement('input')
+			checkbox.type = 'checkbox'
+			checkbox.id = task.id
+			checkbox.checked = task.completed
+			checkbox.addEventListener('change', () => {
+				const index = tasks.findIndex(t => t.id === task.id)
+				tasks[index].completed = !tasks[index].completed
+				saveLocal()
+			})
+			div.innerHTML = `
       <div class="delete">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -151,8 +137,8 @@ const renderTasks = () => {
                   />
                 </svg>
               </div>
-              `;
-      label.innerHTML = `
+              `
+			label.innerHTML = `
               <span class="checkmark"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,86 +156,97 @@ const renderTasks = () => {
                 </svg>
               </span>
               <p>${task.task}</p>
-        `;
-      label.prepend(checkbox);
-      div.prepend(label);
-      tasksContainer.appendChild(div);
+        `
+			label.prepend(checkbox)
+			div.prepend(label)
+			tasksContainer.appendChild(div)
 
-      const deleteBtn = div.querySelector(".delete");
-      deleteBtn.addEventListener("click", () => {
-        const index = tasks.findIndex((t) => t.id === task.id);
-        tasks.splice(index, 1);
-        saveLocal();
-        renderTasks();
-      });
-    });
+			const deleteBtn = div.querySelector('.delete')
+			deleteBtn.addEventListener('click', () => {
+				const index = tasks.findIndex(t => t.id === task.id)
+				tasks.splice(index, 1)
+				saveLocal()
+				renderTasks()
+			})
+		})
 
-    renderCategories();
-    updateTotals();
-  }
-};
+		renderCategories()
+		updateTotals()
+	}
+}
 
 const toggleAddTaskForm = () => {
-  addTaskWrapper.classList.toggle("active");
-  blackBackdrop.classList.toggle("active");
-  addTaskBtn.classList.toggle("active");
-};
+	addTaskWrapper.classList.toggle('active')
+	blackBackdrop.classList.toggle('active')
+	addTaskBtn.classList.toggle('active')
+}
 
-const addTask = (e) => {
-  e.preventDefault();
-  const task = taskInput.value;
-  const category = categorySelect.value;
+const addTask = e => {
+	e.preventDefault()
+	const task = taskInput.value
+	const category = categorySelect.value
 
-  if (task === "") {
-    alert("Please enter a task");
-  } else {
-    const newTask = {
-      id: tasks.length + 1,
-      task,
-      category,
-      completed: false,
-    };
-    taskInput.value = "";
-    tasks.push(newTask);
-    saveLocal();
-    toggleAddTaskForm();
-    renderTasks();
-  }
-};
+	if (task === '') {
+		alert('Please enter a task')
+	} else {
+		// Проверяем, есть ли уже такая задача в хранилище
+		const existingTask = tasks.find(
+			t =>
+				t.task.toLowerCase() === task.toLowerCase() &&
+				t.category.toLowerCase() === category.toLowerCase()
+		)
+		if (existingTask) {
+			alert('This task already exists!')
+		} else {
+			const newTask = {
+				id: tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1, // Генерируем уникальный id
+				task,
+				category,
+				completed: false,
+			}
+			taskInput.value = ''
+			tasks.push(newTask)
+			saveLocal()
+			toggleAddTaskForm()
+			renderTasks()
+		}
+	}
+}
 
-// DOM elements
-let selectedCategory = categories[0];
-const categoriesContainer = document.querySelector(".categories");
-const screenWrapper = document.querySelector(".wrapper");
-const menuBtn = document.querySelector(".menu-btn");
-const backBtn = document.querySelector(".back-btn");
-const tasksContainer = document.querySelector(".tasks");
-const numTasks = document.getElementById("num-tasks");
-const categoryTitle = document.getElementById("category-title");
-const categoryImg = document.getElementById("category-img");
-const categorySelect = document.getElementById("category-select");
-const addTaskWrapper = document.querySelector(".add-task");
-const addTaskBtn = document.querySelector(".add-task-btn");
-const taskInput = document.getElementById("task-input");
-const blackBackdrop = document.querySelector(".black-backdrop");
-const addBtn = document.querySelector(".add-btn");
-const cancelBtn = document.querySelector(".cancel-btn");
-const totalTasks = document.getElementById("total-tasks");
+// Инициализация переменных и DOM-элементов
+let selectedCategory = categories[0]
+const categoriesContainer = document.querySelector('.categories')
+const screenWrapper = document.querySelector('.wrapper')
+const menuBtn = document.querySelector('.menu-btn')
+const backBtn = document.querySelector('.back-btn')
+const tasksContainer = document.querySelector('.tasks')
+const numTasks = document.getElementById('num-tasks')
+const categoryTitle = document.getElementById('category-title')
+const categorySelect = document.getElementById('category-select')
+const addTaskWrapper = document.querySelector('.add-task')
+const addTaskBtn = document.querySelector('.add-task-btn')
+const taskInput = document.getElementById('task-input')
+const blackBackdrop = document.querySelector('.black-backdrop')
+const addBtn = document.querySelector('.add-btn')
+const cancelBtn = document.querySelector('.cancel-btn')
+const totalTasks = document.getElementById('total-tasks')
 
-// Attach event listeners
-menuBtn.addEventListener("click", toggleScreen);
-backBtn.addEventListener("click", toggleScreen);
-addTaskBtn.addEventListener("click", toggleAddTaskForm);
-blackBackdrop.addEventListener("click", toggleAddTaskForm);
-addBtn.addEventListener("click", addTask);
-cancelBtn.addEventListener("click", toggleAddTaskForm);
+// Присоединение обработчиков событий
+menuBtn.addEventListener('click', toggleScreen)
+backBtn.addEventListener('click', toggleScreen)
+addTaskBtn.addEventListener('click', toggleAddTaskForm)
+blackBackdrop.addEventListener('click', toggleAddTaskForm)
+addBtn.addEventListener('click', addTask)
+cancelBtn.addEventListener('click', toggleAddTaskForm)
 
-// Render initial state
-getLocal();
-renderTasks();
-categories.forEach((category) => {
-  const option = document.createElement("option");
-  option.value = category.title.toLowerCase();
-  option.textContent = category.title;
-  categorySelect.appendChild(option);
-});
+// Добавление опций в выпадающий список категорий
+categories.forEach(category => {
+	const option = document.createElement('option')
+	option.value = category.title.toLowerCase()
+	option.textContent = category.title
+	categorySelect.appendChild(option)
+})
+
+// Отображение начального состояния
+getLocal()
+renderTasks()
