@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="login.css"" />
+		<link rel="stylesheet" href="login.css" />
 		<link
 			href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css"
 			rel="stylesheet"
@@ -17,7 +17,8 @@
 					<img src="img-login.svg" alt="" />
 				</div>
 				<div class="login__forms">
-					<form action="" class="login__registre" id="login-in">
+					<!-- Форма для входа -->
+					<form action="" class="login__registre block" id="login-in">
 						<h1 class="login__title">Войти</h1>
 						<div class="login__box">
 							<i class="bx bx-user login__icon"></i>
@@ -45,6 +46,7 @@
 							<span class="login__signin" id="sign-up">Зарегистрироваться</span>
 						</div>
 					</form>
+					<!-- Форма для регистрации -->
 					<form action="" class="login__create none" id="login-up">
 						<h1 class="login__title">Создать аккаунт</h1>
 						<div class="login__box">
@@ -80,7 +82,9 @@
 				</div>
 			</div>
 		</div>
+		<!-- Контейнер для уведомлений -->
 		<div class="notification" id="notification"></div>
+		<!-- Подключение JavaScript-файла -->
 		<script src="login.js"></script>
 	</body>
 </html>

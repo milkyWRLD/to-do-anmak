@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Определение кодировки и масштабирования страницы -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Цвет темы для мобильных устройств -->
 		<meta name="theme-color" content="#ffffff" />
+		<!-- Подключение внешнего CSS-файла -->
 		<link rel="stylesheet" href="planner.css" />
+		<!-- Название страницы -->
 		<title>TO DO</title>
+		<!-- Мета-теги для описания и ключевых слов -->
 		<meta
 			name="description"
 			content="Управляйте своими задачами без лишних усилий с помощью нашего приложения JavaScript Todos List App. Организуйте, расставляйте приоритеты и отслеживайте свои дела с помощью этого удобного веб-приложения."
@@ -16,28 +21,30 @@
 		/>
 	</head>
 	<body>
+		<!-- Контейнер для всего содержимого -->
 		<div class="wrapper">
-			<div class="screen-backdrop"></div>
+			<!-- Экран с основным содержимым -->
 			<div class="home-screen screen">
+				<!-- Шапка экрана -->
 				<div class="head-wrapper">
-					<a href="index.html">
-						<div class="menu-btn">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								class="w-6 h-6"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
-								/>
-							</svg>
-						</div>
-					</a>
+					<!-- Кнопка меню -->
+					<div class="menu-btn">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-6 h-6"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
+							/>
+						</svg>
+					</div>
+					<!-- Приветствие пользователя -->
 					<div class="welcome">
 						<div class="content">
 							<h1>Анастасия</h1>
@@ -45,16 +52,22 @@
 						</div>
 					</div>
 				</div>
+				<!-- Область категорий задач -->
 				<div class="categories-wrapper">
 					<div class="categories">
+						<!-- Категория задач -->
 						<div class="category">
+							<!-- Левая часть категории -->
 							<div class="left">
+								<!-- Содержимое категории -->
 								<div class="content">
 									<h1>Напиши свою первую задачу!</h1>
 									<p></p>
 								</div>
 							</div>
+							<!-- Правая часть категории -->
 							<div class="options">
+								<!-- Кнопка для переключения -->
 								<div class="toggle-btn">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -76,8 +89,11 @@
 					</div>
 				</div>
 			</div>
+			<!-- Экран категории задач -->
 			<div class="category-screen screen">
+				<!-- Шапка экрана категории -->
 				<div class="head-wrapper">
+					<!-- Кнопка "Назад" -->
 					<div class="back-btn">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +110,7 @@
 							/>
 						</svg>
 					</div>
+					<!-- Опции экрана категории -->
 					<div class="options">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -111,19 +128,24 @@
 						</svg>
 					</div>
 				</div>
+				<!-- Детали категории -->
 				<div class="category-details">
 					<div class="details">
+						<!-- Количество задач и название категории -->
 						<p id="num-tasks"></p>
 						<h1 id="category-title"></h1>
 					</div>
 				</div>
+				<!-- Область задач -->
 				<div class="tasks-wrapper">
 					<div class="tasks">
+						<!-- Контейнер для отдельной задачи -->
 						<div class="task-wrapper">
+							<!-- Чекбокс задачи и маркер выполнения -->
 							<label for="task" class="task">
 								<input type="checkbox" name="task" id="task" />
-								<span class="checkmark"
-									><svg
+								<span class="checkmark">
+									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
 										viewBox="0 0 24 24"
@@ -140,6 +162,7 @@
 								</span>
 								<p></p>
 							</label>
+							<!-- Кнопка удаления задачи -->
 							<div class="delete">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -160,6 +183,7 @@
 					</div>
 				</div>
 			</div>
+			<!-- Кнопка для добавления задачи -->
 			<div class="add-task-btn">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -176,25 +200,32 @@
 					/>
 				</svg>
 			</div>
+			<!-- Подложка для модального окна добавления задачи -->
 			<div class="black-backdrop"></div>
+			<!-- Модальное окно добавления задачи -->
 			<div class="add-task">
+				<!-- Затемнение заднего фона -->
 				<div class="add-task-backdrop"></div>
+				<!-- Заголовок модального окна -->
 				<h1 class="heading">Добавить задачу</h1>
+				<!-- Группа ввода для задачи -->
 				<div class="input-group">
 					<label for="task-input"> Задача </label>
 					<input type="text" id="task-input" required />
 				</div>
+				<!-- Группа ввода для категории -->
 				<div class="input-group">
 					<label for="category-select"> Категория </label>
 					<select id="category-select"></select>
 				</div>
+				<!-- Кнопки для отмены и добавления задачи -->
 				<div class="btns">
 					<button class="cancel-btn">Отмена</button>
 					<button class="add-btn">Добавить</button>
 				</div>
 			</div>
 		</div>
-
+		<!-- Подключение JavaScript-файла -->
 		<script src="script.js"></script>
 	</body>
 </html>
